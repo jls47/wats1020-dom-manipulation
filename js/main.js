@@ -83,11 +83,11 @@ $( document ).ready(function() {
 			votePick = $(this).attr('data-vote');
 			console.log(votePick);
 			if(votePick === 'greatest'){
-				console.log('buttspoop');
 				voteCounts.greatest++;
-				console.log(voteCounts.greatest);
+				setTimeout(function(){ alert("Vote counted for the GOAT!"); }, 600);
 			}else{
 				voteCounts.great++;
+				setTimeout(function(){ alert("Vote counted for great."); }, 600);
 			};
 			voteCounts.total = voteCounts.greatest + voteCounts.great;
 			greatestP = Math.floor((voteCounts.greatest/voteCounts.total)*100);
