@@ -5,14 +5,10 @@
 
 $( document ).ready(function() {
     var userInfo = {
-        firstName: 'Jane',
-        lastName: 'Doe'
+        firstName: 'Jerry',
+        lastName: 'Brown'
     };
-    var voteCounts = {
-        great: 0,
-        greatest: 0,
-        total: 0
-    };
+    
     // Place all your Javascript code inside this "document ready" function so
     // it does not run until the DOM is ready for Javascript manipulation.
 
@@ -22,7 +18,20 @@ $( document ).ready(function() {
     //      2. Fill the user's first and last name into `div.user-info`.
     //      (NOTE: You do not have to perform any validation on the data as
     //          a base requirement.)
-
+	
+	$("#Login").click(function(){
+		$("#login-form").hide();
+		$(".user-info").show();
+		//do the first and last
+		$(".user-fullname").replaceWith(userInfo.firstName + " " + userInfo.lastName);
+	});
+	
+	$("#Logout").click(function(){
+		$(".user-info").hide();
+		$("#login-form").show();
+		
+	});
+	
 
     // TODO: Create a function to listen for clicks on all the "View Details"
     // buttons so that when a user clicks a "View Details" button they see
@@ -33,6 +42,18 @@ $( document ).ready(function() {
     //      3. Toggle visibility of all the elements within that parent with the class `details`.
     //      4. Change the text of the "view details" button to read "hide details" so the user
     //          understands they can hide the text again.
+	
+	$(".view-details").click(function(){
+		//$(".view-details").siblings(".details").show();
+		//$(".details").show();
+		//brothers.show();
+		
+		parentClass = $(this).closest("div").attr('class');
+		//console.log(parentClass);
+		$('.'+parentClass).children('.details').toggle();
+		$(this).text("Hide Details <");
+		//need to toggle
+	});
 
     // TODO: Create a function that listens for clicks on the voting buttons and
     // looks at the `data-vote` attribute on each button to see what was voted for,
@@ -43,5 +64,28 @@ $( document ).ready(function() {
     //      3. Increment the counter for whichever vote talley is affected.
     //      4. Determine the respective percentages (out of 100) for each progress bar.
     //      5. Modify the `width` attribute on each progress bar to set the updated percentage.
-
+	var voteCounts = {
+        great: 0,
+        greatest: 0,
+        total: 0
+    };
+	
+	$(".vote").click(function(){
+		votePick = $(this).attr('data-vote');
+		console.log(votePick);
+		if(votePick === 'greatest'){
+			console.log('buttspoop');
+			voteCounts.greatest++;
+			console.log(voteCounts.greatest);
+		}else{
+			voteCounts.great++;
+		};
+		voteCounts.total = voteCounts.greatest + voteCounts.great;
+		greatestP = Math.floor((voteCounts.greatest/voteCounts.total)*100);
+		greatP = Math.floor((voteCounts.great/voteCounts.total)*100);
+		$('.great-progress').css("width", greatP+"%");
+		$('.greatest-progress').css("width", greatestP+"%");
+	});
+	
+	
 });
