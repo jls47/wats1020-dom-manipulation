@@ -3,7 +3,14 @@
 // Custom script goes here.
 //////////////////////////////////////////////////
 
+	var voteCounts = {
+        great: 0,
+        greatest: 0,
+        total: 0
+    };
+
 $( document ).ready(function() {
+	var login = false;
     var userInfo = {
         firstName: 'Jerry',
         lastName: 'Brown'
@@ -24,12 +31,13 @@ $( document ).ready(function() {
 		$(".user-info").show();
 		//do the first and last
 		$(".user-fullname").replaceWith(userInfo.firstName + " " + userInfo.lastName);
+		login = true;
 	});
 	
 	$("#Logout").click(function(){
 		$(".user-info").hide();
 		$("#login-form").show();
-		
+		login = false;
 	});
 	
 
@@ -71,20 +79,24 @@ $( document ).ready(function() {
     };
 	
 	$(".vote").click(function(){
-		votePick = $(this).attr('data-vote');
-		console.log(votePick);
-		if(votePick === 'greatest'){
-			console.log('buttspoop');
-			voteCounts.greatest++;
-			console.log(voteCounts.greatest);
+		if(login == true){
+			votePick = $(this).attr('data-vote');
+			console.log(votePick);
+			if(votePick === 'greatest'){
+				console.log('buttspoop');
+				voteCounts.greatest++;
+				console.log(voteCounts.greatest);
+			}else{
+				voteCounts.great++;
+			};
+			voteCounts.total = voteCounts.greatest + voteCounts.great;
+			greatestP = Math.floor((voteCounts.greatest/voteCounts.total)*100);
+			greatP = Math.floor((voteCounts.great/voteCounts.total)*100);
+			$('.great-progress').css("width", greatP+"%");
+			$('.greatest-progress').css("width", greatestP+"%");
 		}else{
-			voteCounts.great++;
-		};
-		voteCounts.total = voteCounts.greatest + voteCounts.great;
-		greatestP = Math.floor((voteCounts.greatest/voteCounts.total)*100);
-		greatP = Math.floor((voteCounts.great/voteCounts.total)*100);
-		$('.great-progress').css("width", greatP+"%");
-		$('.greatest-progress').css("width", greatestP+"%");
+			alert("Users must sign in before they can vote!");
+		}
 	});
 	
 	
