@@ -8,6 +8,7 @@
         greatest: 0,
         total: 0
     };
+		
 
 $( document ).ready(function() {
 	var login = false;
@@ -15,6 +16,8 @@ $( document ).ready(function() {
         firstName: 'Jerry',
         lastName: 'Brown'
     };
+	$(".details").css("display", "inherit");
+	$(".details").hide();
     
     // Place all your Javascript code inside this "document ready" function so
     // it does not run until the DOM is ready for Javascript manipulation.
@@ -50,16 +53,23 @@ $( document ).ready(function() {
     //      3. Toggle visibility of all the elements within that parent with the class `details`.
     //      4. Change the text of the "view details" button to read "hide details" so the user
     //          understands they can hide the text again.
-	
-	$(".view-details").click(function(){
-		//$(".view-details").siblings(".details").show();
-		//$(".details").show();
-		//brothers.show();
-		
+	var showing = false;
+	var buttonText = " ";
+	$(".view-details").click(function(){		
 		parentClass = $(this).closest("div").attr('class');
 		//console.log(parentClass);
 		$('.'+parentClass).children('.details').toggle();
-		$(this).text("Hide Details <");
+		if(showing == false){
+			buttonText = $(this).html();
+			$(this).text("(( Hide Details ))");
+			console.log(buttonText);
+			showing = true;
+
+		}else{
+			$(this).text(buttonText);
+			console.log(buttonText);
+			showing = false;
+		};
 		//need to toggle
 	});
 
@@ -72,31 +82,42 @@ $( document ).ready(function() {
     //      3. Increment the counter for whichever vote talley is affected.
     //      4. Determine the respective percentages (out of 100) for each progress bar.
     //      5. Modify the `width` attribute on each progress bar to set the updated percentage.
-	var voteCounts = {
+	var voteCount = {
         great: 0,
         greatest: 0,
         total: 0
     };
 	
+	var great = 0;
+	var greatest = 0;
+	var total = 0;
+	
+	localStorage.setItem('voteCount', JSON.stringify(voteCount));
+	
 	$(".vote").click(function(){
+		var localGreat = parseInt(localStorage.getItem('voteCount.great'));
+		var localGOAT = parseInt(localStorage.getItem('voteCount.greatest'));
 		if(login == true){
 			votePick = $(this).attr('data-vote');
-			console.log(votePick);
 			if(votePick === 'greatest'){
-				voteCounts.greatest++;
-				setTimeout(function(){ alert("Vote counted for the GOAT!"); }, 600);
+				setTimeout(function(){$(".resultsBox").text("Vote counted for the GOAT!");}, 200);
+				setTimeout(function(){$(".resultsBox").text(" ");}, 2200);
+				greatest = 1 + localGOAT;	
+				localStorage.setItem('voteCount.greatest', greatest);
 			}else{
-				voteCounts.great++;
-				setTimeout(function(){ alert("Vote counted for great."); }, 600);
+				setTimeout(function(){$(".resultsBox").text("Vote counted for great.");}, 200);
+				setTimeout(function(){$(".resultsBox").text(" ");}, 2200);
+				great = 1 + localGreat;
+				localStorage.setItem('voteCount.great', great);
 			};
-			voteCounts.total = voteCounts.greatest + voteCounts.great;
-			greatestP = Math.floor((voteCounts.greatest/voteCounts.total)*100);
-			greatP = Math.floor((voteCounts.great/voteCounts.total)*100);
+			total = localGOAT + localGreat;
+			greatestP = Math.floor((localGOAT/total)*100);
+			greatP = 100 - greatestP;
 			$('.great-progress').css("width", greatP+"%");
 			$('.greatest-progress').css("width", greatestP+"%");
 		}else{
 			alert("Users must sign in before they can vote!");
-		}
+		};
 	});
 	
 	
