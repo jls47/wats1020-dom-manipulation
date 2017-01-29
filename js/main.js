@@ -2,7 +2,13 @@
 // WATS1020 Dom Manipulation
 // Custom script goes here.
 //////////////////////////////////////////////////
-	
+
+//	var voteCounts = {
+//        great: 0,
+//        greatest: 0,
+//        total: 0
+//s    };
+		
 
 $( document ).ready(function() {
 	var login = false;
@@ -97,6 +103,7 @@ $( document ).ready(function() {
 	
 	localStorage.setItem('voteCount', JSON.stringify(voteCount));
 	console.log(localStorage.getItem('voteCount'));
+	console.log(localStorage.getItem('voteCount.great'));
 	
 	$(".vote").click(function(){
 		var localGreat = parseInt(localStorage.getItem('voteCount.great'));
@@ -109,12 +116,12 @@ $( document ).ready(function() {
 				greatest = 1 + localGOAT;	
 				console.log(greatest);
 				console.log(localStorage.getItem('voteCount.greatest'));
-				localStorage.setItem('voteCount.greatest', greatest);
+				localStorage.setItem('voteCount.greatest', greatest.toString());
 			}else{
 				setTimeout(function(){$(".resultsBox").text("Vote counted for great.");}, 200);
 				setTimeout(function(){$(".resultsBox").text(" ");}, 2200);
 				great = 1 + localGreat;
-				localStorage.setItem('voteCount.great', great);
+				localStorage.setItem('voteCount.great', great.toString());
 			};
 			total = localGOAT + localGreat;
 			greatestP = Math.floor((localGOAT/total)*100);
