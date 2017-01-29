@@ -30,16 +30,16 @@ $( document ).ready(function() {
     //          a base requirement.)
 	
 	$("#Login").click(function(){
-		$("#login-form").hide();
-		$(".user-info").show();
+		$("#login-form").fadeOut();
+		setTimeout(function(){$(".user-info").fadeIn();}, 400);
 		//do the first and last
 		$(".user-fullname").replaceWith(userInfo.firstName + " " + userInfo.lastName);
 		login = true;
 	});
 	
 	$("#Logout").click(function(){
-		$(".user-info").hide();
-		$("#login-form").show();
+		$(".user-info").fadeOut();
+		setTimeout(function(){$("#login-form").fadeIn();}, 400);
 		login = false;
 	});
 	
@@ -53,22 +53,31 @@ $( document ).ready(function() {
     //      3. Toggle visibility of all the elements within that parent with the class `details`.
     //      4. Change the text of the "view details" button to read "hide details" so the user
     //          understands they can hide the text again.
-	var showing = false;
-	var buttonText = " ";
+	//var showing = false;
+	var learnMore = " ";
+	var viewDetails = " ";
 	$(".view-details").click(function(){		
 		parentClass = $(this).closest("div").attr('class');
 		//console.log(parentClass);
-		$('.'+parentClass).children('.details').toggle();
-		if(showing == false){
-			buttonText = $(this).html();
-			$(this).text("(( Hide Details ))");
-			console.log(buttonText);
-			showing = true;
-
-		}else{
-			$(this).text(buttonText);
-			console.log(buttonText);
-			showing = false;
+		$('.'+parentClass).children('.details').slideToggle(300, "linear");
+		$('.'+parentClass).children('.details').toggleClass("details-change");
+		
+		if($(this).html().toString().includes("earn")){
+			learnMore = $(this).html().toString();
+			$(this).text("(( Minimize ))");
+			console.log("learnMore" + learnMore);
+		//	showing = true;
+		}else if($(this).html().toString().includes("View")){
+			viewDetails = $(this).html().toString();
+			$(this).text("(( Hide details ))")
+			console.log(viewDetails);
+		//	showing = true;
+		}else if($(this).html().toString().includes("inimi")){
+			console.log(learnMore);
+			$(this).text(learnMore);
+			
+		}else if($(this).html().toString().includes("ide")){
+			$(this).text(viewDetails);
 		};
 		//need to toggle
 	});
@@ -119,6 +128,4 @@ $( document ).ready(function() {
 			alert("Users must sign in before they can vote!");
 		};
 	});
-	
-	
 });
