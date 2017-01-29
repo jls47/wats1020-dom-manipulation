@@ -112,6 +112,7 @@ $( document ).ready(function() {
 				setTimeout(function(){$(".resultsBox").text("Vote counted for the GOAT!");}, 200);
 				setTimeout(function(){$(".resultsBox").text(" ");}, 2200);
 				greatest = 1 + localGOAT;	
+				console.log(greatest);
 				localStorage.setItem('voteCount.greatest', greatest);
 			}else{
 				setTimeout(function(){$(".resultsBox").text("Vote counted for great.");}, 200);
