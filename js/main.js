@@ -102,6 +102,7 @@ $( document ).ready(function() {
 	var total = 0;
 	
 	localStorage.setItem('voteCount', JSON.stringify(voteCount));
+	console.log(localStorage.getItem('voteCount'));
 	
 	$(".vote").click(function(){
 		var localGreat = parseInt(localStorage.getItem('voteCount.great'));
@@ -112,7 +113,7 @@ $( document ).ready(function() {
 				setTimeout(function(){$(".resultsBox").text("Vote counted for the GOAT!");}, 200);
 				setTimeout(function(){$(".resultsBox").text(" ");}, 2200);
 				greatest = 1 + localGOAT;	
-				console.log(greatest);
+				console.log(localStorage.getItem('voteCount.greatest'));
 				localStorage.setItem('voteCount.greatest', greatest);
 			}else{
 				setTimeout(function(){$(".resultsBox").text("Vote counted for great.");}, 200);
