@@ -103,7 +103,7 @@ $( document ).ready(function() {
 	
 	localStorage.setItem('voteCount', JSON.stringify(voteCount));
 	console.log(localStorage.getItem('voteCount'));
-	console.log("great + " + localStorage.getItem('voteCount.great'));
+	console.log("great + " + parseInt(localStorage.getItem('voteCount.great')));
 	
 	$(".vote").click(function(){
 		var localGreat = parseInt(localStorage.getItem('voteCount.great'));
