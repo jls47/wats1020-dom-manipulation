@@ -2,13 +2,7 @@
 // WATS1020 Dom Manipulation
 // Custom script goes here.
 //////////////////////////////////////////////////
-
-	var voteCounts = {
-        great: 0,
-        greatest: 0,
-        total: 0
-    };
-		
+	
 
 $( document ).ready(function() {
 	var login = false;
@@ -113,6 +107,7 @@ $( document ).ready(function() {
 				setTimeout(function(){$(".resultsBox").text("Vote counted for the GOAT!");}, 200);
 				setTimeout(function(){$(".resultsBox").text(" ");}, 2200);
 				greatest = 1 + localGOAT;	
+				console.log(greatest);
 				console.log(localStorage.getItem('voteCount.greatest'));
 				localStorage.setItem('voteCount.greatest', greatest);
 			}else{
